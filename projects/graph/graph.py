@@ -103,8 +103,6 @@ class Graph:
                     s.push(neighbor)
                    
 
-
-
     def dft_recursive(self, starting_vertex):
         """
         Print each vertex in depth-first order
@@ -112,8 +110,24 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass #TODO   
-        
+       
+        #Keep track of visited outside of recursive call
+        visited = set()
+
+        def dft_inner(vertex):
+            if vertex in visited:
+                return
+            else:
+                visited.add(vertex)
+            print(vertex)
+
+            neighbors = self.get_neighbors(vertex)
+
+            for neighbor in neighbors:
+                dft_inner(neighbor)
+
+        dft_inner(starting_vertex)
+
 
 
     def bfs(self, starting_vertex, destination_vertex):
@@ -122,8 +136,41 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass #TODO
+   
+        # make a queue
+        q_bft_path = Queue() 
+
+        #enqueue the starting node
+        q_bft_path.enqueue([starting_vertex])
+
+        #make a set to track if we've been here before
+        visited = set()
         
+        #4-while our queue isn't empty
+        while q_bft_path.size() > 0:
+            ##  dequeue whatever's at the front of our line, this is our current_node
+            cur_node_path = q_bft_path.dequeue()
+            # get the last node of the path[-1]
+            last_node = cur_node_path[-1]
+            
+            ##if we haven't visited this node yet
+            if last_node not in visited:
+                #mark as visited
+                visited.add(last_node)
+                #print all the vertices
+                print(last_node)
+             ### get its neighbors
+            neighbors = self.get_neighbors(last_node)
+            ### for each of the neighbors,
+            for neighbor in neighbors:
+                next_node_path = cur_node_path.copy()
+                next_node_path.append(neighbor)
+
+                # check if neighbor is destination node
+                if neighbor == destination_vertex:
+                    return next_node_path
+                #add the next node path to existing one
+                q_bft_path.enqueue(next_node_path)
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -131,7 +178,7 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass #TODO    
+        pass #TODO 
        
 
     def dfs_recursive(self, starting_vertex, destination_vertex):
@@ -144,7 +191,6 @@ class Graph:
         """
         pass #TODO  
         
-
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
     # https://github.com/LambdaSchool/Graphs/blob/master/objectives/breadth-first-search/img/bfs-visit-order.png
