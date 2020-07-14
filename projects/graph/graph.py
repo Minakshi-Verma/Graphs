@@ -26,13 +26,14 @@ class Graph:
         Get all neighbors (edges) of a vertex.
         """
         return self.vertices[vertex_id]
+   
 
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        # pass #TODO
+        
         # UPER STEPS
 
         #1-make a queue
@@ -53,15 +54,16 @@ class Graph:
             if current_node not in visited:
                 ### mark as visited
                 visited.add(current_node)
+                #print all the vertices
                 print(current_node)
+            
                 ### get its neighbors
-                neighbors = self.get_neighbors(starting_vertex)
+                neighbors = self.get_neighbors(current_node)
                 ### for each of the neighbors,
                 for neighbor in neighbors:
                     #### add to queue
-                    q.enqueue(neighbor)
-                    print(neighbor)
- 
+                    q.enqueue(neighbor) 
+
         
 
     def dft(self, starting_vertex):
@@ -69,8 +71,38 @@ class Graph:
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
-        
+           
+        # UPER STEPS
+
+        #1-make a stack
+        s = Stack()
+
+        #2- push our starting node
+        s.push(starting_vertex)
+
+        #3- make a set to track if we've been here before 
+        visited = set()
+
+        #4-while our stack isn't empty
+        while s.size() > 0:
+
+        ##  pop off whatever's at the front of our line, this is our current_node
+            current_node = s.pop()
+            ##if we haven't visited this node yet,
+            if current_node not in visited:
+                ### mark as visited
+                visited.add(current_node)
+                #print all the vertices
+                print(current_node)
+            
+                ### get its neighbors
+                neighbors = self.get_neighbors(current_node)
+                ### for each of the neighbors,
+                for neighbor in neighbors:
+                    #### add to the stack
+                    s.push(neighbor)
+                   
+
 
 
     def dft_recursive(self, starting_vertex):
@@ -80,7 +112,7 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        pass #TODO   
         
 
 
@@ -90,8 +122,8 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
-       
+        pass #TODO
+        
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -99,8 +131,8 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass  # TODO
-        
+        pass #TODO    
+       
 
     def dfs_recursive(self, starting_vertex, destination_vertex):
         """
@@ -110,8 +142,8 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
-       
+        pass #TODO  
+        
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
