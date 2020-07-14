@@ -13,26 +13,56 @@ class Graph:
         """
         Add a vertex to the graph.
         """
-        pass  # TODO
+        self.vertices[vertex_id] = set()
 
     def add_edge(self, v1, v2):
         """
         Add a directed edge to the graph.
         """
-        pass  # TODO
+        self.vertices[v1].add(v2)
 
     def get_neighbors(self, vertex_id):
         """
         Get all neighbors (edges) of a vertex.
         """
-        pass  # TODO
+        return self.vertices[vertex_id]
 
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # pass #TODO
+        # UPER STEPS
+
+        #1-make a queue
+        q = Queue()
+
+        #2- enqueue our starting node
+        q.enqueue(starting_vertex)
+
+        #3- make a set to track if we've been here before 
+        visited = set()
+
+        #4-while our queue isn't empty
+        while q.size() > 0:
+
+        ##  dequeue whatever's at the front of our line, this is our current_node
+            current_node = q.dequeue()
+            ##if we haven't visited this node yet,
+            if current_node not in visited:
+                ### mark as visited
+                visited.add(current_node)
+                print(current_node)
+                ### get its neighbors
+                neighbors = self.get_neighbors(starting_vertex)
+                ### for each of the neighbors,
+                for neighbor in neighbors:
+                    #### add to queue
+                    q.enqueue(neighbor)
+                    print(neighbor)
+ 
+        
 
     def dft(self, starting_vertex):
         """
@@ -40,6 +70,8 @@ class Graph:
         beginning from starting_vertex.
         """
         pass  # TODO
+        
+
 
     def dft_recursive(self, starting_vertex):
         """
@@ -49,6 +81,8 @@ class Graph:
         This should be done using recursion.
         """
         pass  # TODO
+        
+
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -57,6 +91,7 @@ class Graph:
         breath-first order.
         """
         pass  # TODO
+       
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -65,6 +100,7 @@ class Graph:
         depth-first order.
         """
         pass  # TODO
+        
 
     def dfs_recursive(self, starting_vertex, destination_vertex):
         """
@@ -75,6 +111,7 @@ class Graph:
         This should be done using recursion.
         """
         pass  # TODO
+       
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
@@ -101,7 +138,7 @@ if __name__ == '__main__':
     Should print:
         {1: {2}, 2: {3, 4}, 3: {5}, 4: {6, 7}, 5: {3}, 6: {3}, 7: {1, 6}}
     '''
-    print(graph.vertices)
+    # print(graph.vertices)
 
     '''
     Valid BFT paths:
