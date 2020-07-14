@@ -73,7 +73,6 @@ class Graph:
         """
            
         # UPER STEPS
-
         #1-make a stack
         s = Stack()
 
@@ -159,7 +158,7 @@ class Graph:
                 visited.add(last_node)
                 #print all the vertices
                 print(last_node)
-             ### get its neighbors
+            ### get its neighbors
             neighbors = self.get_neighbors(last_node)
             ### for each of the neighbors,
             for neighbor in neighbors:
@@ -178,8 +177,44 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass #TODO 
-       
+            
+        #1-make a stack
+        s_dfs_path = Stack() 
+
+        #2- push our starting node
+        s_dfs_path.push([starting_vertex])
+
+        #3- make a set to track if we've been here before 
+        visited = set()
+
+        #4-while our stack isn't empty
+        while s_dfs_path.size() > 0:
+            ##  pop off whatever's at the front of our line, this is our current node
+            cur_node_path = s_dfs_path.pop()
+            # get the last node of the path[-1]
+            last_node = cur_node_path[-1]
+
+
+             #if we haven't visited this node yet,
+            if last_node not in visited:
+                ### mark as visited
+                visited.add(last_node)
+                #print all the vertices
+                print(last_node)
+
+            ### get its neighbors
+            neighbors = self.get_neighbors(last_node)
+
+            ### for each of the neighbors,
+            for neighbor in neighbors:
+                next_node_path = cur_node_path.copy()
+                next_node_path.append(neighbor)
+
+                # check if neighbor is destination node
+                if neighbor == destination_vertex:
+                    return next_node_path
+                #add the next node path to existing one
+                s_dfs_path.push(next_node_path)
 
     def dfs_recursive(self, starting_vertex, destination_vertex):
         """
@@ -189,8 +224,9 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass #TODO  
-        
+       
+        pass #TODO
+
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
     # https://github.com/LambdaSchool/Graphs/blob/master/objectives/breadth-first-search/img/bfs-visit-order.png
