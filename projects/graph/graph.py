@@ -225,7 +225,31 @@ class Graph:
         This should be done using recursion.
         """
        
-        pass #TODO
+        visited = set()
+
+        def dft_inner(path):
+            last_vertex = path[-1]
+
+            if last_vertex in visited:
+                return None
+            else:
+                visited.add(last_vertex)
+
+            if last_vertex == destination_vertex:
+                return path
+
+            neighbors = self.get_neighbors(last_vertex)
+            for neighbor in neighbors:
+                next_path = path.copy()
+                next_path.append(neighbor)
+
+                found = dft_inner(next_path)
+                if found:
+                    return found
+
+            return None
+
+        return dft_inner([starting_vertex])
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
