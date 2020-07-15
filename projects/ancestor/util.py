@@ -11,7 +11,7 @@ class Queue():
     def size(self):
         return len(self.queue)
 
-    class Stack():
+class Stack():
     def __init__(self):
         self.stack = []
     def push(self, value):

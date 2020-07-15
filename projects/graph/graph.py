@@ -250,21 +250,21 @@ class Graph:
         depth-first order.
         """
             
-        #1-make a stack
-        s_dfs_path = Stack() 
+        #1-make a stack ( using a placeholder s)
+        s = Stack() 
 
         #2- push our starting node
-        s_dfs_path.push([starting_vertex])
+        s.push([starting_vertex])
 
         #3- make a set to track if we've been here before 
         visited = set()
 
         #4-while our stack isn't empty
-        while s_dfs_path.size() > 0:
+        while s.size() > 0:
             ##  pop off whatever's at the front of our line, this is our current node
-            cur_node_path = s_dfs_path.pop()
+            cur_path = s.pop()
             # get the last node of the path[-1]
-            last_node = cur_node_path[-1]
+            last_node = cur_path[-1]
 
 
              #if we haven't visited this node yet,
@@ -279,14 +279,14 @@ class Graph:
 
             ### for each of the neighbors,
             for neighbor in neighbors:
-                next_node_path = cur_node_path.copy()
-                next_node_path.append(neighbor)
+                next_path = cur_path.copy()
+                next_path.append(neighbor)
 
                 # check if neighbor is destination node
                 if neighbor == destination_vertex:
-                    return next_node_path
+                    return next_path
                 #add the next node path to existing one
-                s_dfs_path.push(next_node_path)
+                s.push(next_path)
 
 #_____________________________________________________________________
     def dfs_recursive(self, vertex, destination_vertex, path=[], visited=set()):
