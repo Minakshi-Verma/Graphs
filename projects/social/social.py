@@ -109,6 +109,7 @@ class SocialGraph:
 
         while q.size():
             path = q.dequeue()
+            # last vertex is our user
             v= path[-1]  # get the last person added on that path
 
             if v not in visited:
@@ -118,12 +119,13 @@ class SocialGraph:
 
                 neighbors = self.friendships[v]
                 for neighbor in neighbors:
-                # make a copy of the 
+                # make a copy of the path ( since we donot want to modify/update our original path)
                  # path_copy = list(path)   # 1 way to make a copy using list()
                     ##path_copy.append(neighbor)
                  # path_copy = path[:]  #2nd way to make a copy
                  # path_copy = path.copy()  # 3rd way to make a copy, but it creates a shallow copy so not a good method
-                 # path_copy = path +[neighbor] # 4th way:makes a new path( effective and clean way to create a new path)
+                 # path_copy = copy.deepcopy() # 4th way to make copy--creates deep copy
+                 # path_copy = path +[neighbor] # 5th way:makes a new path( effective and clean way to create a new path)
                     q.enqueue(path + [neighbor])
                     
         return visited

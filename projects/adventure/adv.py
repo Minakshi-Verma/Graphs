@@ -27,7 +27,17 @@ player = Player(world.starting_room)
 
 # Fill this out with directions to walk
 # traversal_path = ['n', 'n']
+# store the directions that has been traveled
+reverse_dir_dict= {'n': 's', 's': 'n', 'e': 'w', 'w': 'e'}
+
 traversal_path = []
+reversed_path= []
+rooms= {}
+ # Add the the 1st room  to  rooms
+ rooms[0]= player.room[0]
+ # check for available direction to added room
+ # Check if all the rooms are added or not
+
 
 
 
