@@ -69,7 +69,7 @@ def earliest_ancestor(ancestors, starting_node):
     s.push([starting_node])
 
     longest_path = [starting_node]
-    aged_one = -1
+    aged_one = -1   # aged_ones are the earliest ancestor
 
     while s.size() > 0:
         path = s.pop()
