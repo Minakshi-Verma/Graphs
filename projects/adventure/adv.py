@@ -13,32 +13,48 @@ world = World()
 # map_file = "maps/test_line.txt"
 # map_file = "maps/test_cross.txt"
 # map_file = "maps/test_loop.txt"
-# map_file = "maps/test_loop_fork.txt"
-map_file = "maps/main_maze.txt"
+map_file = "maps/test_loop_fork.txt"
+# map_file = "maps/main_maze.txt"
 
 # Loads the map into a dictionary
 room_graph=literal_eval(open(map_file, "r").read())
 world.load_graph(room_graph)
 
 # Print an ASCII map
-world.print_rooms()
+
+# world.print_rooms()
 
 player = Player(world.starting_room)
 
 # Fill this out with directions to walk
 # traversal_path = ['n', 'n']
 # store the directions that has been traveled
-reverse_dir_dict= {'n': 's', 's': 'n', 'e': 'w', 'w': 'e'}
+reverse_dir= {'n': 's', 's': 'n', 'e': 'w', 'w': 'e'}
 
+#Keep track of path traversed to visit rooms
 traversal_path = []
+
+#Keep track of backtracked path while visiting rooms
 reversed_path= []
+
+# Keep track of all the rooms visited
 rooms= {}
- # Add the the 1st room  to  rooms
- rooms[0]= player.room[0]
+ # Add the the 1st room--index[0]  to  rooms 
  # check for available direction to added room
+rooms[0]= player.current_room.get_exits()
+# print(rooms)
+
  # Check if all the rooms are added or not
-
-
+while len(rooms)< len(room_graph):
+    # print(rooms[player.current_room.id])
+    # print(player.current_room.id)
+    # if room is not visited 
+    if (player.current_room.id) not in rooms: 
+        # Add exit from current rooms other rooms     
+        rooms[player.current_room.id]= player.current_room.get_exits()
+    # print(player.current_room.id)
+# last_dir = reversed_path[-1]
+# print(last_dir)
 
 
 # TRAVERSAL TEST
@@ -61,15 +77,15 @@ else:
 #######
 # UNCOMMENT TO WALK AROUND
 #######
-player.current_room.print_room_description(player)
-while True:
-    cmds = input("-> ").lower().split(" ")
-    if cmds[0] in ["n", "s", "e", "w"]:
-        player.travel(cmds[0], True)
-    elif cmds[0] == "q":
-        break
-    else:
-        print("I did not understand that command.")
+# player.current_room.print_room_description(player)
+# while True:
+#     cmds = input("-> ").lower().split(" ")
+#     if cmds[0] in ["n", "s", "e", "w"]:
+#         player.travel(cmds[0], True)
+#     elif cmds[0] == "q":
+#         break
+#     else:
+#         print("I did not understand that command.")
 
 
 
