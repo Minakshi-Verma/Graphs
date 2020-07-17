@@ -35,27 +35,62 @@ reverse_dir= {'n': 's', 's': 'n', 'e': 'w', 'w': 'e'}
 traversal_path = []
 
 #Keep track of backtracked path while visiting rooms
-reversed_path= []
+reverse_path= []
 
 # Keep track of all the rooms visited
 rooms= {}
+
  # Add the the 1st room--index[0]  to  rooms 
  # check for available direction to added room
 rooms[0]= player.current_room.get_exits()
-# print(rooms)
+print(rooms[0])
 
- # Check if all the rooms are added or not
-while len(rooms)< len(room_graph):
+#Check if all the rooms are added or not
+while len(rooms)< len(room_graph)-1:
     # print(rooms[player.current_room.id])
-    # print(player.current_room.id)
+        
     # if room is not visited 
-    if (player.current_room.id) not in rooms: 
+    if (player.current_room.id) not in rooms:
+
         # Add exit from current rooms other rooms     
         rooms[player.current_room.id]= player.current_room.get_exits()
-    # print(player.current_room.id)
-# last_dir = reversed_path[-1]
-# print(last_dir)
+        # print(player.current_room.id)
 
+        #get the last direction traveled
+        last_dir = reverse_path[-1]
+        print(reverse_path[-1])
+
+        # Remove last exit from exits
+        rooms[player.current_room.id].remove(last_dir) # else 1 room showsup as unvisited
+
+ # while there are no more left to explore
+    while len(rooms[player.current_room.id])<1:
+
+        # explore/pop last direction in reverse_path
+        reverse= reverse_path.pop()       
+
+        # Add reverse direction to traversal_path and travel in that direction
+        traversal_path.append(reverse)
+        player.travel(reverse)
+
+
+     # Travel in first available exit direction in room
+    exit_dir = rooms[player.current_room.id].pop(0)
+    # print(player.current_room.id)  # gives the room number
+    # print(rooms[player.current_room.id])  # gives the value: direction associated
+    # print(exit_dir)
+
+    # Add to traversal_path
+    traversal_path.append(exit_dir)
+    # print(traversal_path)
+   
+    # Add reverse direction to reverse path
+    reverse_path.append(reverse_dir[exit_dir])
+    # print(reverse_path)
+
+    # Travel
+    player.travel(exit_dir) 
+    
 
 # TRAVERSAL TEST
 visited_rooms = set()
